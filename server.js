@@ -11,10 +11,10 @@ const image = require('./controllers/image');
 const db = knex ({
     client: 'pg',
     connection: {
-      host : 'https://agile-hollows-89259.herokuapp.com/',
-      user : 'macas5',
-      password : 'asdzxc',
-      database : 'smart-brain'
+      connectionString: process.env.DATABASE_URL,
+      ssl: {
+        rejectUnauthorized: false
+      }
     }
   });
 
