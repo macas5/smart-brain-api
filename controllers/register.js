@@ -1,5 +1,3 @@
-// const validator = require('./validator');
-
 const handleRegister = (db, bcrypt, isValid) => (req, res) => {
   const {email, name, password} = req.body;
   if (isValid(email, password, name)) {
