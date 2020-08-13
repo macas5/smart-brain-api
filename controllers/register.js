@@ -1,6 +1,6 @@
 const handleRegister = (db, bcrypt, isValid) => (req, res) => {
   const {email, name, password} = req.body;
-  if (isValid(email, password, name)) {
+  if (isValid(email, password, name, true)) {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
     db.transaction(trx =>  {
