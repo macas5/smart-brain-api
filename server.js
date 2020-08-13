@@ -7,6 +7,7 @@ const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
+const validator = require('./controllers/validator');
 
 const db = knex ({
   client: 'pg',
@@ -25,7 +26,7 @@ app.use(cors());
 
 app.get('/', (req, res) => {res.send('It is working!')});
 app.post('/signin', signin.handleSignIn(db, bcrypt));
-app.post('/register', register.handleRegister(db, bcrypt));
+app.post('/register', register.handleRegister(db, bcrypt, validator.isvalid));
 app.get('/profile/:id', profile.handleProfileGet(db));
 app.put('/image', image.handleImage(db));
 app.post('/imageurl', image.handleApiCall());
