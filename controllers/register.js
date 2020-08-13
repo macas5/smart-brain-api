@@ -1,8 +1,8 @@
-const validator = require('./validator');
+// const validator = require('./validator');
 
-const handleRegister = (db, bcrypt) => (req, res) => {
+const handleRegister = (db, bcrypt, isValid) => (req, res) => {
   const {email, name, password} = req.body;
-  if (validator.isValid(email, name, password)) {
+  if (isValid(email, password, name)) {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
     db.transaction(trx =>  {
