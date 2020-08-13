@@ -1,4 +1,4 @@
-const validator = require('./controllers/validator');
+const validator = require('./validator');
 
 const handleRegister = (db, bcrypt) => (req, res) => {
   const {email, name, password} = req.body;
