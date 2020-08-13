@@ -21,5 +21,5 @@ const isValid = (email, name, password) => {
 }
 
 module.exports = {
-  isValid = isValid
+  isValid: isValid
 }
