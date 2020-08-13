@@ -8,7 +8,12 @@ const isValid = (email, name, password) => {
   }  
 
   const isValidName = (name) => {
-    return true;
+    if ((name.length > 0) && (name.length < 65) 
+    && (!(/\d | [~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/.test(name))) 
+    && (typeof name === 'string' || name instanceof String)){
+      return true;
+    }
+    return false;
   }
 
   const isValidPassword = (password) => {
