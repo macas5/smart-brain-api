@@ -1,8 +1,8 @@
 const handleRegister = (db, bcrypt, isValid) => (req, res) => {
   const {email, name, password} = req.body;
   if (isValid(email, password, name, true)) {
-    bcrypt.genSaltSync(10, (err, salt) => {
-      bcrypt.hashSync(password, salt, (err, hash) => {
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(password, salt, (err, hash) => {
         db.transaction(trx =>  {
           trx.insert ({
             hash: hash,
@@ -25,8 +25,8 @@ const handleRegister = (db, bcrypt, isValid) => (req, res) => {
           .catch(trx.rollback)
         })
         .catch(err => res.status(400).json('unable to register'));
-      });
-    });
+      })
+    })
   } else {
     res.status(400).json('One of the parameters is incorrect');
   }
