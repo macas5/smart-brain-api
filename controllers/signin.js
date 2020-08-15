@@ -1,7 +1,7 @@
 const handleSignIn = (db, bcrypt, isValid) => (req, res) => {
   const { email, password } = req.body;
   //Disabled login info validator for ease of testing
-  // if (isValid(email, password)){
+  if (isValid(email, password)){
     db.select('email', 'hash').from('login')
     .where('email', '=', email)
       .then(data => {
@@ -20,9 +20,9 @@ const handleSignIn = (db, bcrypt, isValid) => (req, res) => {
         })
         .catch (err => res.status(400).json('wrong credentials'));
         });
-  // } else {
-  //   res.status(400).json('One of the parameters is incorrect');
-  // }
+  } else {
+    res.status(400).json('One of the parameters is incorrect');
+  }
 }
 
 module.exports = {
