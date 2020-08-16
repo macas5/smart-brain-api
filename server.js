@@ -8,6 +8,7 @@ const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 const validator = require('./controllers/validator');
+const rankings = require('./controllers/rankings');
 
 const db = knex ({
   client: 'pg',
@@ -30,6 +31,7 @@ app.post('/register', register.handleRegister(db, bcrypt, validator.isValid));
 app.get('/profile/:id', profile.handleProfileGet(db));
 app.put('/image', image.handleImage(db));
 app.post('/imageurl', image.handleApiCall());
+app.get('/rankings', rankings.getRankings(db));
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`App is running on port${process.env.PORT}`);
