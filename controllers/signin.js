@@ -1,6 +1,5 @@
 const handleSignIn = (db, bcrypt, isValid) => (req, res) => {
   const { email, password } = req.body;
-  //Disabled login info validator for ease of testing
   if (isValid(email, password)){
     db.select('email', 'hash').from('login')
     .where('email', '=', email)

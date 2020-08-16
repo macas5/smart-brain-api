@@ -1,5 +1,5 @@
 const getRankings = (db) => (req, res) => {
-  db.select('name', 'entries').from('users').orderBy('entries', 'DESC').limit(10)
+  db.select('id', 'name', 'entries').from('users').orderBy('entries', 'DESC').limit(10)
   .then(users => {
     res.json(users);
   })
