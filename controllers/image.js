@@ -12,9 +12,9 @@ const handleApiCall = () => (req, res) => {
     .then(data => {
       res.json(data);
     })
-    .catch(err => res.status(400).json('unable to work with API'));
+    .catch(err => res.status(500).json('unable to work with API'));
   } else {
-    res.status(400).json('Wrong parameter passed');
+    res.status(409).json('Wrong parameter passed');
   }
 }
 
@@ -27,9 +27,9 @@ const handleImage = (db) => (req, res) => {
     .then(entries => {
       res.json(entries[0]);
     })
-    .catch(err => res.status(400).json('unable to get entries'));
+    .catch(err => res.status(409).json('unable to get entries'));
   } else {
-    res.status(400).json('Wrong parameter passed');
+    res.status(409).json('Wrong parameter passed');
   }
 }
 

@@ -5,11 +5,11 @@ const handleProfileGet = (db) => (req, res) => {
       if (user.length) {
         res.json(user[0]);
       } else {
-        res.status(400).json('No such user');
+        res.status(404).json('No such user');
       };
     });
   } else {
-    res.status(400).json('Wrong paramaeter passed');
+    res.status(409).json('Wrong paramaeter passed');
   }
 }
 

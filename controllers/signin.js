@@ -14,13 +14,13 @@ const handleSignIn = (db, bcrypt, isValid) => (req, res) => {
               .catch(err => res.status(400).json('Unable to get user'))
               )
           } else {
-            res.status(400).json('wrong credentials')
+            res.status(409).json('wrong credentials')
           }
         })
-        .catch (err => res.status(400).json('wrong credentials'));
+        .catch (err => res.status(409).json('wrong credentials'));
         });
   } else {
-    res.status(400).json('One of the parameters is incorrect');
+    res.status(409).json('One of the parameters is incorrect');
   }
 }
 
