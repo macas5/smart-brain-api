@@ -1,5 +1,6 @@
-const handleRegister = (db, bcrypt, isValid) => (req, res) => {
+const handleRegister = (db, bcrypt, isValid, jwt) => (req, res) => {
   const {email, name, password} = req.body;
+  // console.log('access', accessToken, 'refresh', refreshToken);
   if (isValid(email, password, name, true)) {
     db.select('email').from('login').where('email', '=', email)
     .then(data => data[0] === undefined ? 
@@ -20,7 +21,9 @@ const handleRegister = (db, bcrypt, isValid) => (req, res) => {
                 name: name,
                 joined: new Date()
               }).then(user => {
-                res.json(user[0]);
+                const accessToken = jwt.sign(user[0], process.env.ACCESS_TOKEN_SECRET, 
+                  {expiresIn: '3h'});
+                res.json({accessToken: accessToken});
               })
             })
             .then(trx.commit)

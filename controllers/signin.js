@@ -1,4 +1,4 @@
-const handleSignIn = (db, bcrypt, isValid) => (req, res) => {
+const handleSignIn = (db, bcrypt, isValid, jwt) => (req, res) => {
   const { email, password } = req.body;
   if (isValid(email, password)){
     db.select('email', 'hash').from('login')
@@ -9,7 +9,11 @@ const handleSignIn = (db, bcrypt, isValid) => (req, res) => {
             return (db.select('*').from('users')
               .where('email', '=', email)
               .then (user => {
-                res.json(user[0])
+                // res.json(user[0])
+                // console.log(user[0]);
+                const accessToken = jwt.sign(user[0], process.env.ACCESS_TOKEN_SECRET, 
+                {expiresIn: '3h'});
+                res.json({accessToken: accessToken});
               })
               .catch(err => res.status(400).json('Unable to get user'))
               )

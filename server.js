@@ -1,7 +1,9 @@
+require('dotenv').config();
 const express = require ('express');
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
 const knex = require('knex');
+const jwt = require('jsonwebtoken');
 
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
@@ -9,6 +11,7 @@ const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 const validator = require('./controllers/validator');
 const rankings = require('./controllers/rankings');
+const authenticate = require('./controllers/authenticate');
 
 const db = knex ({
   client: 'pg',
@@ -26,9 +29,11 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/', (req, res) => {res.send('It is working!')});
-app.post('/signin', signin.handleSignIn(db, bcrypt, validator.isValid));
-app.post('/register', register.handleRegister(db, bcrypt, validator.isValid));
-app.get('/profile/:id', profile.handleProfileGet(db));
+app.post('/signin', signin.handleSignIn(db, bcrypt, validator.isValid, jwt));
+app.post('/register', register.handleRegister(db, bcrypt, validator.isValid, jwt));
+app.get('/profile/:id', authenticate.authenticateToken, profile.handleProfileGet(db));
+// app.post('/token', (req, res))
+app.get('/getuser', authenticate.authenticateToken, (req, res) => {res.json(req.user)})
 app.put('/image', image.handleImage(db));
 app.post('/imageurl', image.handleApiCall());
 app.get('/rankings', rankings.getRankings(db));
