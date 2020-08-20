@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "start-dev": "env DATABASE_URL='postgres://jeodeswcdgevma:dd5789df5d23f91ab8bbb1ee2e1d09d39298a3c279b16bd5d40f07070293d186@ec2-50-16-198-4.compute-1.amazonaws.com:5432/dc9olprp3heff0' CLARIFAI_KEY='2215c8f026f4486fa3eb389e39589630' nodemon server.js"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
