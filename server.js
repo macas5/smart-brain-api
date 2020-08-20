@@ -31,7 +31,7 @@ app.use(cors());
 app.get('/', (req, res) => {res.send('It is working!')});
 app.post('/signin', signin.handleSignIn(db, bcrypt, validator.isValid, jwt));
 app.post('/register', register.handleRegister(db, bcrypt, validator.isValid, jwt));
-app.get('/profile/:id', authenticate.authenticateToken, profile.handleProfileGet(db));
+app.get('/profile/:id', profile.handleProfileGet(db));
 app.get('/getuser', authenticate.authenticateToken, (req, res) => {res.json(req.user)})
 app.put('/image', image.handleImage(db));
 app.post('/imageurl', image.handleApiCall());

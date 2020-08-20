@@ -1,6 +1,5 @@
 const handleProfileGet = (db) => (req, res) => {
   const { id } = req.params;
-  console.log(req.user);
   if (!isNaN(id) && (id > 0)){
     db.select('*').from('users').where({id}).then(user => {
       if (user.length) {
