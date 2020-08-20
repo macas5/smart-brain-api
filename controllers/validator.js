@@ -9,7 +9,7 @@ const isValid = (email, password, name = '', isRegister = false) => {
   
   const isValidPassword = (password) => {
     if ((password.length > 5) && (password.length < 65) 
-    && (/\d/.test(password)) && (/[A-Z a-z]/.test(password)) 
+    && (/\d/.test(password)) && (/[A-Z]|[a-z]/.test(password)) 
     // Lifted up some requirements for ease of testing 
     //(and you don't need that much of security for a website like this)
     // && (/[~`!#$%\-\^&*+=\[\]\\';,/{}|\\":<>\?]/.test(password))
