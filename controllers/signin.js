@@ -6,7 +6,8 @@ const handleSignIn = (db, bcrypt, isValid, jwt) => (req, res) => {
     .then(data => {
       bcrypt.compare(password, data[0].hash).then((response) => {
         if (response) {
-          return (db.select('*').from('users')
+          return (
+            db.select('*').from('users')
             .where('email', '=', email.toLowerCase())
             .then (user => {
               const accessToken = jwt.sign(user[0], process.env.ACCESS_TOKEN_SECRET, 
@@ -14,7 +15,7 @@ const handleSignIn = (db, bcrypt, isValid, jwt) => (req, res) => {
               res.json({accessToken: accessToken});
             })
             .catch(err => res.status(400).json('Unable to get user'))
-            )
+          )
         } else {
           res.status(409).json('wrong credentials')
         }

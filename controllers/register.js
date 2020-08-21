@@ -19,9 +19,10 @@ const handleRegister = (db, bcrypt, isValid, jwt) => (req, res) => {
                 email: loginEmail[0].toLowerCase(),
                 name: name,
                 joined: new Date()
-              }).then(user => {
+              })
+              .then(user => {
                 const accessToken = jwt.sign(user[0], process.env.ACCESS_TOKEN_SECRET, 
-                  {expiresIn: '3h'});
+                {expiresIn: '3h'});
                 res.json({accessToken: accessToken});
               })
             })
