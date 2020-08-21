@@ -1,6 +1,7 @@
 const handleRegister = (db, bcrypt, isValid, jwt) => (req, res) => {
   const {email, name, password} = req.body;
-  if (isValid(email, password, name, true)) {
+  const isRegister = true;
+  if (isValid(email, password, name, isRegister)) {
     db.select('email').from('login').where('email', '=', email)
     .then(data => data[0] === undefined ? 
       bcrypt.genSalt(10, (err, salt) => {

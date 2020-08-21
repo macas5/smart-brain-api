@@ -6,16 +6,16 @@ const app = new Clarifai.App({
 });
 
 const handleApiCall = (db) => (req, res) => {
-  const { input, id } = req.body;
+  const { input, userId } = req.body;
   if (validUrl.isUri(input)) {
     app.models.predict(Clarifai.FACE_DETECT_MODEL, input)
     .then(data => {
-      if (!isNaN(id) && (id > 0)){
-        db('users').where('id', '=', id)
+      if (!isNaN(userId) && (userId > 0)){
+        db('users').where('id', '=', userId)
         .increment('entries', 1)
         .returning('entries')
         .then(entries => {
-          res.json([data, entries[0]]);
+          res.json({data: data, entries: entries[0]});
         })
         .catch(err => res.status(409).json('unable to get entries'));
       } else {
