@@ -13,6 +13,16 @@ const handleProfileGet = (db) => (req, res) => {
   }
 }
 
+const updateProfile = (db) => (req, res) => {
+  db.select('entries').from('users').where('id', '=', req.user.id)
+  .then(data => {
+    Object.assign(req.user, {entries: data[0].entries});
+    res.json(req.user)
+  })
+  .catch(err => res.status(404).json('Entries not found'));
+}
+
 module.exports = {
-  handleProfileGet: handleProfileGet,
+  handleProfileGet,
+  updateProfile
 }

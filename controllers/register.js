@@ -8,7 +8,7 @@ const handleRegister = (db, bcrypt, isValid, jwt) => (req, res) => {
           db.transaction(trx =>  {
             trx.insert ({
               hash: hash,
-              email: email
+              email: email.toLowerCase()
             })
             .into('login')
             .returning('email')
@@ -16,7 +16,7 @@ const handleRegister = (db, bcrypt, isValid, jwt) => (req, res) => {
               return trx('users')
               .returning('*')
               .insert ({
-                email: loginEmail[0],
+                email: loginEmail[0].toLowerCase(),
                 name: name,
                 joined: new Date()
               }).then(user => {
